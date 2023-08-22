@@ -26,7 +26,7 @@ async def on_message(message):
         return
 
     if message.content.startswith('!bus'):
-        payload = {'token': AC_TRANSIT_TOKEN, 'stpid': ','.join([str(stpid) for stpid in NORTHSIDE_STOPS.values()]), 'rt': ','.join([route for route in NORTHSIDE_STOPS.keys()]), 'top': 3, 'tmres': 'm'}
+        payload = {'token': AC_TRANSIT_TOKEN, 'stpid': ','.join([str(stpid) for stpid in NORTHSIDE_STOPS.values()]), 'rt': ','.join([route for route in NORTHSIDE_STOPS.keys()]), 'top': 5, 'tmres': 'm'}
         r = requests.get(BASE_URL + '/actrealtime/prediction', params = payload)
         
         northside_times = [(arrival['rt'], 0 if arrival['prdctdn']=='Due' else int(arrival['prdctdn']), arrival['stpnm']) for arrival in r.json()['bustime-response']['prd']]
@@ -43,7 +43,7 @@ async def on_message(message):
 
 
 
-        payload = {'token': AC_TRANSIT_TOKEN, 'stpid': ','.join([str(stpid) for stpid in SOUTHSIDE_STOPS.values()]), 'rt': ','.join([route for route in SOUTHSIDE_STOPS.keys()]), 'top': 3, 'tmres': 'm'}
+        payload = {'token': AC_TRANSIT_TOKEN, 'stpid': ','.join([str(stpid) for stpid in SOUTHSIDE_STOPS.values()]), 'rt': ','.join([route for route in SOUTHSIDE_STOPS.keys()]), 'top': 5, 'tmres': 'm'}
         r = requests.get(BASE_URL + '/actrealtime/prediction', params = payload)
 
         southside_times = [(arrival['rt'], 0 if arrival['prdctdn']=='Due' else int(arrival['prdctdn']), arrival['stpnm']) for arrival in r.json()['bustime-response']['prd']]
