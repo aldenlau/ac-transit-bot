@@ -35,7 +35,7 @@ async def on_message(message):
         dict_data = xmltodict.parse(r.content)
         for item in dict_data['body']['predictions']['direction']['prediction']:
             minutes = item['@minutes']
-            northside_times.append(('P Line', minutes, 'Oxford St & University Av'))
+            northside_times.append(('P', minutes, 'Oxford St & University Av'))
         northside_times.sort(key=(lambda x: x[1]))
         northside_times = northside_times[:5]
         
@@ -52,7 +52,7 @@ async def on_message(message):
         dict_data = xmltodict.parse(r.content)
         for item in dict_data['body']['predictions']['direction']['prediction']:
             minutes = item['@minutes']
-            southside_times.append(('P Line', minutes, 'Bancroft Way & Telegraph Av'))
+            southside_times.append(('P', minutes, 'Bancroft Way & Telegraph Av'))
         southside_times.sort(key=(lambda x: x[1]))
         southside_times = southside_times[:5]
 
