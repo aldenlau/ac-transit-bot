@@ -33,7 +33,7 @@ async def on_message(message):
 
         r = requests.get(BEAR_TRANSIT_URL+NORTHSIDE_BEAR_TRANSIT_STOP_NAME)
         dict_data = xmltodict.parse(r.content)
-        for item in dict_data['body']['predictions']['direction']['prediction']:
+        for item in dict_data['body']['predictions'].get('direction',{'prediction': []})['prediction']:
             minutes = int(item['@minutes'])
             northside_times.append(('P', minutes, 'Oxford St & University Av'))
         northside_times.sort(key=lambda x: x[1])
@@ -50,7 +50,7 @@ async def on_message(message):
 
         r = requests.get(BEAR_TRANSIT_URL+SOUTHSIDE_BEAR_TRANSIT_STOP_NAME)
         dict_data = xmltodict.parse(r.content)
-        for item in dict_data['body']['predictions']['direction']['prediction']:
+        for item in dict_data['body']['predictions'].get('direction',{'prediction': []})['prediction']:
             minutes = int(item['@minutes'])
             southside_times.append(('P', minutes, 'Bancroft Way & Telegraph Av'))
         southside_times.sort(key=lambda x: x[1])
